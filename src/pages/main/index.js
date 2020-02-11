@@ -3,7 +3,8 @@ import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
-import { Container, Form, SubmitButton, List } from './style'
+import Container from '../../components/container';
+import { Form, SubmitButton, List } from './style'
 
 function Main() {
   const [isFirstLoading, setIsFirstLoading] = React.useState(true);
