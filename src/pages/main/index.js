@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa'
+import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 import { Container, Form, SubmitButton, List } from './style'
@@ -58,7 +59,7 @@ function Main() {
         {repos && repos.map((item, index) => (
           <li key={index}>
             <span>{item.name}</span>
-            <a href="">Detalhes</a>
+            <Link to={`repository/${encodeURIComponent(item.name)}`}>Detalhes</Link>
           </li>
         ))}
       </List>
