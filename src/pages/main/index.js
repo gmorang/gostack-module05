@@ -2,12 +2,31 @@ import React from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa'
 
 import api from '../../services/api';
-import { Container, Form, SubmitButton } from './style'
+import { Container, Form, SubmitButton, List } from './style'
 
 function Main() {
+  const [isFirstLoading, setIsFirstLoading] = React.useState(true);
   const [repos, setRepos] = React.useState([]);
   const [text, setText] = React.useState('');
   const [isLoading, setLoading] = React.useState(false);
+
+  const getRepos = () => {
+    const repos = localStorage.getItem('repos');
+
+    if (repos) {
+      setRepos(JSON.parse(repos))
+    }
+  }
+
+  React.useEffect(() => {
+    if (isFirstLoading) {
+      setIsFirstLoading(false);
+      return;
+    }
+    localStorage.setItem('repos', JSON.stringify(repos));
+  }, [repos]);
+
+  React.useEffect(() => { getRepos() }, [])
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -35,6 +54,14 @@ function Main() {
         </SubmitButton>
       </Form>
 
+      <List>
+        {repos && repos.map((item, index) => (
+          <li key={index}>
+            <span>{item.name}</span>
+            <a href="">Detalhes</a>
+          </li>
+        ))}
+      </List>
 
     </Container>
   );
